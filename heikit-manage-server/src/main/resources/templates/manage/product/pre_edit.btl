@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>编辑CPL任务组管理</title>
+  <%include("/common/base_css.btl"){}%>
+</head>
+
+<body class="form-detail" οnlοad="load();">
+  <form class="layui-form" action="">
+	  <div class="layui-form-item layui-col-md12"> 
+	  	 <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">活动组名</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="${activityGroup.name}">
+	      </div>
+	    </div> 
+	  <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">标题</label>
+	      <div class="layui-input-inline">
+	         <input type="text" id="title" name="c" autocomplete="off" class="layui-input" value="${activityGroup.title}" style="width: 300px;">
+	      </div>
+	    </div>
+  	  </div> 
+	  <div class="layui-form-item ">   
+	  		<div class="layui-inline layui-col-md11">
+		      <label class="layui-form-label form-label">是否上架</label>
+		      <div class="layui-input-block">
+			      <input type="radio" name="isValid" value="0" title="上架" >
+	      		  <input type="radio" name="isValid" value="1" title="下架">
+		   	  </div>
+		 </div>
+	   </div>
+	   <div class="layui-form-item "> 
+	   	<div class="layui-inline layui-col-md11">
+	      	<label class="layui-form-label form-label">对接方式</label>
+		      <div class="layui-input-inline" style="width: 320px;">
+	 				<input type="checkbox" name="postType" lay-skin="primary" title="手机号" value="1">
+	 				<input type="checkbox" name="postType" lay-skin="primary" title="微信" value="2">
+	 				<input type="checkbox" name="postType" lay-skin="primary" title="安卓" value="3">
+	 				<input type="checkbox" name="postType" lay-skin="primary" title="苹果" value="4">
+			   </div>
+	    </div>
+	  </div>
+	  <div class="layui-form-item layui-col-md12"> 
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">起始时间</label>
+	      <div class="layui-input-inline">
+	         <input type="text" class="layui-input" id="beginDate" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off">
+	      </div>
+	    </div>
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">终止时间</label>
+	      <div class="layui-input-inline">
+	         <input type="text" class="layui-input" id="finishDate" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off">
+	      </div>
+	    </div>
+	  </div>
+   	  <div class="layui-form-item layui-col-md12">
+		<div class="layui-inline layui-col-md4">
+			<label class="layui-form-label form-label">logo</label>
+			<div class="layui-input-inline">
+				<button type="button" class="layui-btn" id="logo">
+					<i class="layui-icon">&#xe67c;</i>上传图片
+				</button>
+			</div>
+		</div>
+		<div class="layui-inline layui-col-md4">
+			<div class="layui-input-inline">
+				<img src="${activityGroup.logo}" id="logoImg" width="100px"
+					height="100px" />
+			</div>
+		 </div>
+	   </div>
+	   <div class="layui-form-item layui-col-md12">
+	      <div class="layui-inline layui-col-md4">
+			<label class="layui-form-label form-label">详情picture</label>
+			<div class="layui-input-inline">
+				<button type="button" class="layui-btn" id="picture">
+					<i class="layui-icon">&#xe67c;</i>上传图片
+				</button>
+			</div>
+		  </div>
+		<div class="layui-inline layui-col-md4">
+			<div class="layui-input-inline">
+				<img src="${activityGroup.picture}" id="pictureImg" width="100px"
+					height="100px" />
+				</div>
+			</div>
+	  </div>
+  	  <div class="layui-form-item layui-col-md12">  
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">内存大小</label>
+	      <div class="layui-input-inline">
+	         <input type="text" id="size" name="size" autocomplete="off" class="layui-input" value="${activityGroup.size}">
+	      </div>
+	    </div>
+		 <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">最大金额</label>
+	      <div class="layui-input-inline">
+	         <input type="text" id="maxGolds" name="maxGolds"  autocomplete="off" class="layui-input" value="${activityGroup.maxGolds}">
+	      </div>
+	    </div>
+  	  </div>
+
+  	  <div class="layui-form-item">  
+	    <div class="layui-inline layui-col-md11">
+  	    <label class="layui-form-label form-label">描述</label>
+	    <div class="layui-input-block">
+	      <textarea id="description" placeholder="请输入内容" class="layui-textarea" style="width:500px;height:150px;">${activityGroup.description}</textarea>
+	    </div>
+	    </div>
+
+
+  	  </div>
+  	  
+  	    <div id="show-button">
+						 <div class="form-group">
+									<div >
+										<button type="reset" class="layui-btn layui-btn-primary">流转</button>
+									</div>
+						 </div> 
+						 
+						  <div >
+									<div >
+										<button type="reset" class="layui-btn layui-btn-primary">保存</button>
+									</div>
+						 </div> 
+						  <div >
+									<div>
+										<button type="reset" class="layui-btn layui-btn-primary">完结</button>
+									</div>
+						 </div>
+						</div> 
+  
+	  <div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	      <button id="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+	    </div>
+  	  </div>  
+  </form>
+</body>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/plugins/layui/layui.js"></script>
+<script>
+
+window.onload = myfun;// 不要括号
+
+function myfun(){　　 
+/* 	var display =document.getElementById('show-button')
+	
+	console.log(display); */
+	var size ="${activityGroup.description}";
+	console.log(size);
+	if(size == "kk") {
+		console.log("hahh");
+		$("#show-button").hide();
+	}
+} 
+
+//重新渲染表单
+	function renderForm(){
+	  layui.use('form', function(){
+	   var form = layui.form;
+	   form.render();
+	  });
+	 }
+	layui.use('form', function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  initPostTypes();
+	   initLabels();
+	  
+	  $('input[name=isValid][value=${activityGroup.isValid}]').attr('checked',true);
+	  
+
+	  var beginDate ='${activityGroup.beginDate,'yyyy-MM-dd HH:mm:ss'}';
+	  var finishDate = '${activityGroup.finishDate,'yyyy-MM-dd HH:mm:ss'}';
+	  $("#beginDate").val(beginDate);
+	  $("#finishDate").val(finishDate);
+	  form.render();
+	});
+	layui.use('laydate', function(){
+	var laydate = layui.laydate;
+		 //日期时间选择器
+	  laydate.render({
+	    elem: '#beginDate'
+	    ,type: 'datetime'
+	  });
+	  laydate.render({
+	    elem: '#finishDate'
+	    ,type: 'datetime'
+	  });
+	  });
+	layui.use('upload', function() {
+		var upload = layui.upload;
+
+		//执行实例
+		var uploadInst = upload.render({
+			elem : '#logo' //绑定元素
+			,
+			url : '/manage/tools/upload' //上传接口
+			,
+			done : function(res) {
+				$('#logoImg').attr('src', res.filename);
+			},
+			error : function() {
+				//请求异常回调
+			}
+		});
+
+		//执行实例
+		var uploadInst = upload.render({
+			elem : '#picture' //绑定元素
+			,
+			url : '/manage/tools/upload' //上传接口
+			,
+			done : function(res) {
+				$('#pictureImg').attr('src', res.filename);
+			},
+			error : function() {
+				//请求异常回调
+			}
+		});
+	});
+	 $('#submit').on('click', function(){
+	 	var id = "${activityGroup.id}";
+	 	var name = $("#name").val();
+	 	var title = $("#title").val();
+	 	var logo = $('#logoImg')[0].src;
+	 	var labels = $("input:checkbox[name='labels']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join(',');
+	 	var picture = $("#pictureImg")[0].src;
+	 	var description = $("#description").val();
+	 	var postType = $("input:checkbox[name='postType']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join(',');
+	 	var size = $("#size").val();
+	 	var maxGolds = $("#maxGolds").val();
+	 	var beginDate = $("#beginDate").val();
+	 	var finishDate = $("#finishDate").val();
+	 	var isValid = $('input[name="isValid"]:checked').val();
+        if(beginDate == '' || finishDate == ''){
+        	layer.msg('起止时间不准为空!');
+        	return false;
+        }
+        
+        if(name == '' || title == '' ){
+        	layer.msg('必填字段不能为空');
+	 		return false;
+	 	}
+	 	
+		
+        var data = {
+	        		id:id,
+	        		name:name,
+		 			postType:postType,
+		 			title:title,
+		 			logo:logo,
+		 			labels:labels,
+		 			picture:picture,
+		 			description:description,
+		 			size:size,
+		 			maxGolds:maxGolds,
+		 			beginDate:beginDate,
+		 			finishDate:finishDate,
+		 			isValid:isValid,
+       	};
+        console.log(data);
+        var msg='';var result=false;
+        $.ajaxSettings.async = false;
+	 	$.get("edit.json",data,function(res){
+	 		msg = res.msg;
+	 		result = res.result;
+	 	});
+	 	if(!result){
+	 		layer.msg(msg);
+	 		return false;
+	 	}
+	 	var index = parent.layer.getFrameIndex(window.name);
+		parent.layer.close(index);
+		return false;
+	 });
+	 
+	 function initPostTypes(){
+		 var postTypes = "${postTypes}";
+		 $.each($.parseJSON(postTypes),function(index,postTypeId){
+			 $('input[name=postType][value='+postTypeId+']').attr('checked',true);
+		 })
+	 };
+	 function initLabels(){
+ 		var editLabels = "${editLabels}";
+		 editLabels =  editLabels.replace('[','').replace(']','');
+		 editLabels =  editLabels.split(',');
+ 	
+ 		 for(var i=0; i<editLabels.length; i++) {
+			 $("input[name=labels][value="+editLabels[i]+"]").attr('checked',true);
+ 		 } 
+	 };
+</script>
+</html>

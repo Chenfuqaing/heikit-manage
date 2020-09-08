@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>合同管理</title>
+    <%include("/common/base_css.btl"){}%>
+</head>
+
+<body>
+<div class="layui-fluid">
+	<div class="layui-row">
+	   <div class="layui-form">
+	      <div class="layui-form-item">
+	          <div class="layui-inline">
+	              <label class="layui-form-label">项目名称：</label>
+		          <div class="layui-input-inline" style="width: 100px">
+				      <input class="layui-input" name="projectName" id="projectName" autocomplete="off">
+				  </div>
+	          </div>
+<!-- 	          <div class="layui-inline">
+	              <label class="layui-form-label">费用归属：</label>
+		          <div class="layui-input-inline" style="width: 100px">
+				      <input class="layui-input" name="coseUser" id="coseUser" autocomplete="off">
+				  </div>
+	          </div> -->
+
+	          <div class="layui-inline">
+	              <label class="layui-form-label">合同签订时间</label>
+		          <div class="layui-input-inline" style="width: 180px">
+				      <input type="text" class="layui-input" id="signDate" placeholder=" - ">
+				  </div>
+	          </div>
+	          
+			  <div class="layui-inline">
+			     <div class="layui-input-block">
+			        <button id="search" class="layui-btn" data-type="reload">搜索</button>
+			        <button id="add" class="layui-btn" data-type="reload">新增合同</button>
+			     </div>
+			  </div>
+	      </div>
+	  </div>
+	</div>
+
+	<div class="layui-row">
+	    <table lay-filter="table-init" id="data-table"></table>
+    </div>
+</div>
+    <%include("/common/table-list.btl"){}%>
+    <script src="/static/js/resource/market/contract.js"></script>
+</body>
+
+</html>

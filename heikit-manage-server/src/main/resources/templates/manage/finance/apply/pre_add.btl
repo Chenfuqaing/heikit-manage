@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>添加报销信息88</title>
+  <%include("/common/base_css.btl"){}%>
+</head>
+
+<body class="form-detail" >
+  <form class="layui-form" action="">
+
+	<div class="layui-form-item layui-col-md12">
+          
+        <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">报销人</label>
+	      <div class="layui-input-inline">
+		        <select id="applyUserId"  lay-filter="applyUserId" lay-verify="required" lay-search="">	        
+		          <option value="">直接选择或搜索选择</option>
+		          <% 
+		             for(userDO in userDOs!){
+		            %>
+		          <option value="${userDO.id}">${userDO.realName}</option>
+		          <% } %>
+		        </select>
+		   </div>
+	    </div>
+
+    		<div class="layui-inline layui-col-md4">
+    	      <label class="layui-form-label form-label">同行人</label>
+    	      <div class="layui-input-inline">
+    	        <input type="text" id="togetherUser" name="togetherUser" lay-verify="required" autocomplete="off" class="layui-input" >
+    	      </div>
+    	    </div>
+   
+
+	</div>
+	<div class="layui-form-item layui-col-md12">
+		<div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">项目名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="projectName" name="projectName" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	    </div>	 
+
+    	    
+	    	<div class="layui-inline layui-col-md4">
+               <label class="layui-form-label form-label">费用归属</label>
+               <div class="layui-input-inline">
+                 <input type="text" name="costUser" id='costUser' lay-verify="pass" placeholder="" autocomplete="off" class="layui-input">
+               </div>
+           </div> 
+           
+
+			</div>
+	<div class="layui-form-item layui-col-md12">
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">报销金额</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="price" id='price' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+  	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">票据数量</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="number" id='number' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input">
+                </div>
+		</div>
+	</div>
+	
+	<div class="layui-form-item layui-col-md12">
+    		<div class="layui-inline layui-col-md4">
+    	      <label class="layui-form-label form-label">出差地点</label>
+    	      <div class="layui-input-inline">
+    	        <input type="text" id="address" name="address" lay-verify="required" autocomplete="off" class="layui-input" style="width:542px;">
+    	      </div>
+    	    </div>
+    </div>	
+	     
+	  <div class="layui-form-item">
+  	    <label class="layui-form-label form-label">报销内容</label>
+	    <div class="layui-input-block layui-col-md11">
+	      <textarea id="applyContent" placeholder="请输入报销内容" class="layui-textarea" style="width:542px;height:100px;"></textarea>
+	    </div>
+	  </div>
+
+	<div class="layui-form-item layui-col-md12">
+    		<div class="layui-inline layui-col-md4">
+    	      <label class="layui-form-label form-label">备注</label>
+    	      <div class="layui-input-inline">
+    	        <input type="text" id="message" name="message" lay-verify="required" autocomplete="off" class="layui-input" style="width:542px;">
+    	      </div>
+    	    </div>
+    </div>
+    <div class="layui-form-item layui-col-md12">
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">报销时间</label>
+	      <div class="layui-input-inline">
+	         <input type="text" class="layui-input" id="applyDate" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off">
+	      </div>
+	    </div>
+	    
+	    </div>
+	  </div>   
+	  </div>    
+     <div class="layui-form-item layui-col-md12">
+          <div class="layui-inline layui-col-md4">
+              <label class="layui-form-label form-label">状态</label>
+              <div class="layui-input-block">
+                  <input type="radio" name="status" value="0" title="待审核"  checked="">
+                  <input type="radio" name="status" value="1" title="审核通过" >
+                  <input type="radio" name="status" value="2" title="未通过" >
+              </div>
+         </div>
+     </div>
+
+	  
+	  <div class="layui-form-item">
+	    <div class="layui-input-block layui-col-md11">
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	      <button id="submit" class="layui-btn" lay-submit="" lay-filter="demo1" onssubmit="return false;">立即提交</button>
+	    </div>
+  	  </div>  
+  </form>
+</body>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/plugins/layui-2.5.6/layui.js"></script>
+<script>
+
+	layui.use('form', function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  
+		$("#applyUserId").children('option').each(function(){
+		    if($(this).val()=='${userDO.id}'){
+		       $(this).prop('selected',true);
+		    }
+		});
+		
+		//自定义验证规则  */
+		form.verify({
+	          required: [/[\S]+/, "必填项不能为空"],
+	          phone: [/(^$)|^1\d{10}$/, "请输入正确的手机号"],
+	          email: [/(^$)|^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/, "邮箱格式不正确"],
+	          url: [/(^$)|(^#)|(^http(s*):\/\/[^\s]+\.[^\s]+)/, "链接格式不正确"],
+	          number: function (e) {
+	              if (e && isNaN(e))return "只能填写数字"
+	          },
+	          integer: [/^\d*$/, "只能填写整数"],
+	          date: [/(^$)|^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/, "日期格式不正确"],
+	          identity: [/(^$)|(^\d{15}$)|(^\d{17}(x|X|\d)$)/, "请输入正确的身份证号"]
+	      })
+	  //……
+	  
+	  //但是，如果你的HTML是动态生成的，自动渲染就会失效
+	  //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+	  form.render();
+	});  
+	layui.use('upload', function(){
+	  var upload = layui.upload;
+	   
+	  //执行实例
+	  var uploadInst = upload.render({
+	    elem: '#banner' //绑定元素
+	    ,url: '/upload/file' //上传接口
+	    ,done: function(res){
+	      //上传完毕回调
+	    }
+	    ,error: function(){
+	      //请求异常回调
+	    }
+	  });
+	});
+	layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		//日期时间选择器
+		  laydate.render({
+		    elem: '#applyDate',
+		    type: 'datetime',
+		    trigger:'click'
+		  });
+	});
+	 $('#submit').on('click', function(){
+		 	var projectName = $("#projectName").val();
+		 	var costUser = $("#costUser").val();
+		 	var price = $("#price").val();
+		 	
+		    if(isNaN(price)){　　　　
+		    	parent.layer.msg('报销金额必须是数字!');
+			    return false;
+		    }
+		    
+		 	var number = $("#number").val();
+		    if(isNaN(number)){　　　　
+		    	parent.layer.msg('票据数量必须是数字!');
+			    return false;
+		    }
+		 	
+		 	var applyDate = $("#applyDate").val();
+		 	var applyUserId = $("#applyUserId").val();
+		 	var applyContent = $("#applyContent").val();
+		 	var message = $("#message").val();
+		 	var togetherUser = $("#togetherUser").val();
+		 	var address = $("#address").val();
+		 	var status = $('input[name="status"]:checked').val();
+
+	 	var data = {
+	 			projectName:projectName,
+	 			costUser:costUser,
+	 			applyUserId:applyUserId,
+	 			price:price,
+	 			number:number,
+	 			applyDate:applyDate,
+	 			applyContent:applyContent,
+	 			message:message, 
+		 		status:status,
+		 		togetherUser:togetherUser,
+		 		address:address
+	 	};
+	 	$.ajaxSettings.async = false;
+	 	$.get("add.json",data,function(res){
+	 	});
+	 	var index = parent.layer.getFrameIndex(window.name);
+ 		parent.layer.close(index);
+ 		return false;
+	 });
+</script>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <%include("/common/base_css.btl"){}%>
+</head>
+
+<body>
+  <form class="layui-form" action="">
+	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	        <label class="layui-form-label">值</label>
+		    <div class="layui-input-block">
+		      <input type="text" id="value" name="value" lay-verify="required" autocomplete="off" class="layui-input">
+	    	</div>
+	      </div>
+	    </div>
+  	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">类型</label>
+	      <div class="layui-input-block">
+		      <input type="radio" name="configType" value="1" title="1" checked="">
+      		  <input type="radio" name="configType" value="2" title="2">
+	   	  </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">是否上架</label>
+	      <div class="layui-input-block">
+		      <input type="radio" name="isValid" value="0" title="上架" checked="">
+      		  <input type="radio" name="isValid" value="1" title="下架">
+	   	  </div>
+	    </div>
+  	  </div>
+	  <div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	      <button id="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+	    </div>
+  	  </div>  
+  </form>
+</body>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/plugins/layui/layui.js"></script>
+<script>
+	layui.use('form', function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  
+	  //……
+	  
+	  //但是，如果你的HTML是动态生成的，自动渲染就会失效
+	  //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+	  form.render();
+	}); 
+	
+	 $('#submit').on('click', function(){
+	 	var name = $("#name").val();
+	 	var value = $("#value").val();
+	 	var configType = $("input[name='configType']:checked").val();
+        var isDel = $("input[name='isValid']:checked").val();
+        var data = {
+        		name:name,
+        		value:value,
+        		configType:configType,
+        		isDel:isDel
+        };
+        
+        var msg='';var result=false;
+        $.ajaxSettings.async = false;
+	 	$.get("add.json",data,function(res){
+	 		result = res.result;
+	 		msg = res.msg;
+	 	});
+	 	if(!result){
+	 		layer.msg(msg);
+	 		return false;
+	 	}
+	 	var index = parent.layer.getFrameIndex(window.name);
+		parent.layer.close(index);
+		return false;
+	 });
+</script>
+</html>

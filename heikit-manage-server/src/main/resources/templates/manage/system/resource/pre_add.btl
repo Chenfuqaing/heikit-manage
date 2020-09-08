@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>资源配置新增</title>
+  <%include("/common/base_css.btl"){}%>
+</head>
+
+<body>
+  <form class="layui-form" action="" id="add-form-data">
+  	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">所属资源</label>
+	      <div class="layui-input-inline">
+		        <select id="parent-id" name="parentId" lay-filter="activityCode" lay-verify="required" lay-search="">	        
+		          <option value="">直接选择或搜索选择</option>
+		          <option value="0">一级资源</option>
+		          <% 
+		            for(faResourceDO in faResourceDOs){
+		            %>
+		          <option value="${faResourceDO.id}">${faResourceDO.name}</option>
+		          <% } %>
+		        </select>
+		   </div>
+	    </div>
+  	  </div>
+  	   <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">资源名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="name" name="name" lay-verify="required"  autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">资源地址</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="url" name="url" placeholder="一级资源无需填写地址url" lay-verify="required" style="width: 500px;" autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	  <div class="layui-inline">
+			<label class="layui-form-label">资源类型</label>
+			<div class="layui-input-block">
+				<input type="radio" name="type" value="0" title="目录">
+				<input type="radio" name="type" value="1" title="菜单">
+			</div>
+	  </div>
+	  <div class="layui-inline">
+	      <label class="layui-form-label">前置图标</label>
+	      <div class="layui-input-inline">
+		        <select id="icon"  lay-filter="icon" name="icon" lay-verify="required" lay-search="">	        
+		          <option value="">直接选择或搜索选择</option>
+		          <% 
+		            for(allResourceDO in allResourceDOs){
+		            %>
+		          <option value="${allResourceDO.icon}">${allResourceDO.icon}</option>
+		          <% } %>
+		        </select>
+		   </div>
+	  </div>
+	  </div>
+  	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">默认排序</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="order-num" name="orderNum" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+  	  </div>
+	  <div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	      <button id="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+	    </div>
+  	  </div>  
+  </form>
+</body>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/plugins/layui-2.5.6/layui.js"></script>
+<script>
+	layui.use('form', function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  
+	  //……
+	  
+	  //但是，如果你的HTML是动态生成的，自动渲染就会失效
+	  //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+	  form.render();
+	});  
+	 $('#submit').on('click', function(){
+		 var $form = $('#add-form-data');
+		 var data = $form.serializeArray();
+	 	layer.msg('处理中...',{shade:[0.8, '#393D49'],time:60*60*1000});
+        var msg='';var result=false;
+        $.ajaxSettings.async = false;
+	 	$.get("add.json",data,function(res){
+	 		result = res.result;
+	 		msg = res.msg;
+	 	});
+	 	if(!result){
+	 		layer.msg(msg);
+	 		return false;
+	 	}
+	 	var index = parent.layer.getFrameIndex(window.name);
+		parent.layer.close(index);
+		return false;
+	 });
+</script>
+</html>

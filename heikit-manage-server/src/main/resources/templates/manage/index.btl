@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>北京海基特-平台</title>
+  <%include("../common/base_css.btl"){};%>
+  
+</head>
+
+<body class="kit-theme">
+  <div class="layui-layout layui-layout-admin kit-layout-admin">
+    <div class="layui-header">
+      <div class="layui-logo">北京海基特</div>
+      <div class="layui-logo kit-logo-mobile">北京海基特</div>
+      <ul class="layui-nav layui-layout-left kit-nav" id="main-menu">
+      <%
+      for(menu in resources){
+      %>
+        <li class="layui-nav-item"><a href="javascript:;" data-title="${menu.name}" data-id="${menu.id}">${menu.name}</a></li>
+      <% } %>
+        <li class="layui-nav-item">
+          <a href="javascript:;">其它系统</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">邮件管理</a></dd>
+            <dd><a href="javascript:;">消息管理</a></dd>
+            <dd><a href="javascript:;">授权管理</a></dd>
+          </dl>
+        </li>
+      </ul>
+      <ul class="layui-nav layui-layout-right kit-nav">
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+            <img src="../../static/images/psc.jpg" class="layui-nav-img">
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;"><span>基本资料</span></a></dd>
+            <dd><a href="javascript:;">安全设置</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="/logout.html"><i class="fa fa-address-book" aria-hidden="true"></i> 注销</a></li>
+      </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black kit-side">
+      <div class="layui-side-scroll">
+        <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar id="adminMenuDetail">
+         
+        </ul>
+      </div>
+    </div>
+    <div class="layui-body" id="container">
+      <!-- 内容主体区域 -->
+      <div style="padding: 15px;"><i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop">&#xe63e;</i> 请稍等...</div>
+    </div>
+
+    <div class="layui-footer">
+      <!-- 底部固定区域 -->
+      2020 &copy;
+      <a href="http://www.baidu.com">百度</a> MIT license
+    </div>
+  </div>
+
+  <%include("../common/base_js.btl"){};%>
+  <script>
+  
+  initClick();
+  
+    function initLayui(){
+    	layui.config({
+    	      base: '/static/js/',
+    	      version: '1.0.1'
+    	    }).use(['app', 'message'], function() {
+    	      var app = layui.app,
+    	        $ = layui.jquery,
+    	        layer = layui.layer;
+    	      //将message设置为全局以便子页面调用
+    	      message = layui.message;
+    	      //主入口
+    	       app.set({
+    	        type: 'iframe'
+    	      }).init();
+    	    });
+    	
+    	  layui.use(['form', 'layer', 'element'], function () {    
+              var form = layui.form,
+                  $ = layui.jquery,
+                  element = layui.element,
+                  layer = layui.layer;
+                  element.init(); 
+          });
+    }
+    
+    function initMenuList(modularid) {
+    	
+    	$.get('menus.json',{modularid: modularid},function(res){
+    		var html = "";
+    		var resLength = res.length;
+    		if(resLength == 0){
+    			return;
+    		}
+    		
+	   		 for (var i = 0; i < resLength; i++) {
+	   			 var r = res[i];
+	   			 html += '<li class="layui-nav-item layui-nav-itemed" id='+i+'><dd><a href="javascript:;" kit-target data-options="{url:\'' + r.url + '\',title:\'' + r.name + '\',id:\'' + r.id + '\'}"><i class="'+r.icon+'" aria-hidden="true"></i> <span>' + r.name + '</span></a></dd>';
+	   			  
+	   			 /* var twoMenuLength = r.twoMenuDOs.length;
+	   			 
+	   			 for(var j = 0; j < twoMenuLength; j++){
+	   				 var twoMenu = res[i].twoMenuDOs[j];
+	   				 html += '<dd><a href="javascript:;" kit-target data-options="{url:\'' + twoMenu.menuURL + '\',title:\'' + twoMenu.name + '\',id:\'' + twoMenu.id + '\'}"><i class="'+twoMenu.icon+'"></i> <span>' + twoMenu.name + '</span></a></dd>';
+	   			 } */
+	   			  html += '</li>';
+	   		 }
+	   		 $("#adminMenuDetail").html(html);
+	   		 initLayui();
+    	});
+    	 
+    }
+    
+    function initClick(){
+    	var $mainMenu = $('#main-menu');
+    	$mainMenu.find('li').on('click', function(){
+    		var $this = $(this);
+    		var id = $this.find('a').attr('data-id');
+    		initMenuList(id);
+    	});
+    	$mainMenu.find('li').eq(0).click();
+    }
+  </script>
+</body>
+
+</html>

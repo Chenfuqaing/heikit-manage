@@ -1,0 +1,5 @@
+    <link rel="stylesheet" href="/static/plugins/layui-2.5.6/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css" media="all" />
+    <link rel="stylesheet" href="/static/css/app.css" media="all" />
+    <link rel="stylesheet" href="/static/css/themes/default.css" media="all" id="skin" kit-skin />
+    <link rel="stylesheet" href="/static/css/main.css" media="all" />

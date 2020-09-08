@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <%include("/common/base_css.btl"){}%>
+</head>
+
+<body>
+  <form class="layui-form" action="">
+	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">用户账号</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="username" name="username" autocomplete="off" class="layui-input" value="${userDO.username}" readonly>
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">真实姓名</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="realName" name="realName" lay-verify="required" autocomplete="off" class="layui-input" value="${userDO.realName}">
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">修改密码</label>
+	      <div class="layui-input-inline">
+	        <a id="editPassWord" class="layui-btn layui-btn-xs" lay-event="editPassWord">编辑</a>
+	      </div>
+	    </div>
+	   </div>
+  	  <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">角色选择</label>
+	      <%
+	      for(roleDO in roleDOs){
+	      %>
+	        <input type="checkbox" name="roleDOId" lay-skin="primary" title="${roleDO.name}" value="${roleDO.id}">
+	      <% } %>
+	    </div>
+  	  </div>
+	  <div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	      <button id="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+	    </div>
+  	  </div>  
+  </form>
+</body>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/plugins/layui-2.5.6/layui.js"></script>
+<script>
+	layui.use('form', function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  
+	  //……
+	   $('#editPassWord').on('click', function(){
+		   layer.open({
+	    	    type: 2,
+	    	    title: '修改密码',
+	    	    shadeClose: true,
+	    	    shade: 0.8,
+	    	    area: ['80%', '80%'],
+	    	    content: 'pre_editPassWord.json?username='+$("#username").val(),
+	    	    
+	    	});
+	   });
+	 
+	  //但是，如果你的HTML是动态生成的，自动渲染就会失效
+	  //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+	  //form.render();
+	  initRole();
+	  form.render();
+	});  
+	layui.use('upload', function(){
+	  var upload = layui.upload;
+	   
+	  //执行实例
+	  var uploadInst = upload.render({
+	    elem: '#banner' //绑定元素
+	    ,url: '/upload/file' //上传接口
+	    ,done: function(res){
+	      //上传完毕回调
+	    }
+	    ,error: function(){
+	      //请求异常回调
+	    }
+	  });
+	});
+	 $('#submit').on('click', function(){
+	 	var id = "${userDO.id}";
+	 	var realName = $("#realName").val();
+	 	var roleId = $("input:checkbox[name='roleDOId']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join(',');
+	 	var data = {
+	 			id:id,
+	 			realName:realName,
+	 			roleId:roleId	
+	 	};
+	 	$.ajaxSettings.async = false;
+	 	$.get("edit.json",data,function(res){
+	 	});
+	 	var index = parent.layer.getFrameIndex(window.name);
+ 		parent.layer.close(index);
+ 		return false;
+	 });
+	 
+	 function initRole(){
+		 var roleIdDatas = '${userDO.roleId}';
+		 var roleIds;
+		 if(roleIdDatas){
+			 roleIds = roleIdDatas.split(',');
+			 if(roleIds.length>0){
+				 $.each(roleIds,function(index,role){
+					 $('input[name=roleDOId][value='+role+']').attr('checked',true);
+				 })
+			 }
+		}
+		 
+	 }
+</script>
+</html>

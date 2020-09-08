@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rejia.manage.dbcore.dao.common.CustomMapperDao" >
+<resultMap id="BaseResultMap" type="java.util.Map">
+ </resultMap>
+   <select id="selectBySql" resultType="map">
+      ${_parameter}
+   </select>
+   
+   <select id="selectCountBySql" resultType="java.lang.Long">
+      ${_parameter}
+   </select>
+   
+   <select id="selectSumSql" resultType="java.lang.Double">
+      ${_parameter}
+   </select>
+</mapper>

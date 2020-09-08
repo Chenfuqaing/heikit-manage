@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>修改报销信息</title>
+  <%include("/common/base_css.btl"){}%>
+</head>
+
+<body class="form-detail">
+  <form class="layui-form" action="">
+
+
+	<div class="layui-form-item layui-col-md8">
+		<div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">项目名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="projectName" name="projectName" lay-verify="required" autocomplete="off" class="layui-input" value="${t.projectName}" >
+	      </div>
+	    </div>
+	    
+    	<div class="layui-inline layui-col-md4">
+               <label class="layui-form-label form-label">费用归属人</label>
+               <div class="layui-input-inline">
+                <!--  <input type="text" name="costUser" id='costUser' lay-verify="pass" placeholder="" autocomplete="off" class="layui-input" value="${t.costUser}" readonly> 仅读 -->
+                 <input type="text" name="costUser" id='costUser' lay-verify="pass" placeholder="" autocomplete="off" class="layui-input" value="${t.costUser}" >
+               </div>
+           </div>
+	</div>
+	<div class="layui-form-item layui-col-md12">
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">报销金额</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="price" id='price' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input" value="${t.price}" >
+                </div>
+            </div>
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">票据数量</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="number" id='number' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input" value="${t.number}" >
+                </div>
+            </div>
+	</div>
+	
+	     
+	  <div class="layui-form-item">
+  	    <label class="layui-form-label form-label">报销内容</label>
+	    <div class="layui-input-block layui-col-md11">
+	      <textarea id="applyContent" placeholder="请输入报销内容" class="layui-textarea" style="width:542px;height:100px;" value="" >${t.applyContent}</textarea>
+	    </div>
+	  </div>
+	<div class="layui-form-item layui-col-md12">
+    		<div class="layui-inline layui-col-md4">
+    	      <label class="layui-form-label form-label">备注</label>
+    	      <div class="layui-input-inline">
+    	        <input type="text" id="message" name="message" lay-verify="required" autocomplete="off" class="layui-input" style="width:542px;" value="${t.message}" >
+    	      </div>
+    	    </div>
+    </div>
+    <div class="layui-form-item layui-col-md12">
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">报销时间</label>
+	      <div class="layui-input-inline">
+	         <input type="text" class="layui-input" id="applyDate" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off">
+	      </div>
+	    </div>
+	    
+	    </div>
+	  </div>   
+	  </div>    
+     <div class="layui-form-item layui-col-md12">
+          <div class="layui-inline layui-col-md4">
+              <label class="layui-form-label form-label">状态</label>
+              <div class="layui-input-block">
+                  <input type="radio" name="status" value="1" title="未报销" checked="">
+                  <input type="radio" name="status" value="0" title="已报销">
+              </div>
+         </div>
+     </div>
+
+	  
+	  <div class="layui-form-item">
+	    <div class="layui-input-block layui-col-md11">
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	      <button id="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+	    </div>
+  	  </div>  
+  </form>
+</body>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/plugins/layui-2.5.6/layui.js"></script>
+<script>
+	//重新渲染表单
+	function renderForm(){
+	  layui.use('form', function(){
+	   var form = layui.form;
+	   form.render();
+	  });
+	 }
+	layui.use('form', function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  $('input[name=status][value=${t.status}]').attr('checked',true);
+	  
+
+	  var applyDate ='${t.applyDate,'yyyy-MM-dd HH:mm:ss'}';
+	  $("#applyDate").val(applyDate);
+	  
+	  form.render();
+	});  
+	layui.use('laydate', function(){
+	var laydate = layui.laydate;
+	
+		 //日期时间选择器
+	  laydate.render({
+	    elem: '#applyDate'
+	    ,type: 'datetime'
+	  });
+	  laydate.render({
+	    elem: '#finishDate'
+	    ,type: 'datetime'
+	  });
+	  });
+	
+	 $('#submit').on('click', function(){
+		 var id = "${t.id}";
+		 	var projectName = $("#projectName").val();
+		 	var costUser = $("#costUser").val();
+		 	var price = $("#price").val();
+		 	var number = $("#number").val();
+		 	var applyDate = $("#applyDate").val();
+		 	var applyContent = $("#applyContent").val();
+		 	var message = $("#message").val();
+		 	var status = $('input[name="status"]:checked').val();
+
+		
+	 	var data = {
+	 				id : id,
+	 				projectName:projectName,
+		 			costUser:costUser,
+		 			price:price,
+		 			number:number,
+		 			applyDate:applyDate,
+		 			applyContent:applyContent,
+		 			message:message, 
+			 		status:status
+
+		 	};
+	 	
+	 	var msg='';var status=false;
+        $.ajaxSettings.async = false;
+	 	$.get("edit.json",data,function(res){
+	 		debugger;
+	 		status = res.hasError;
+	 		msg = res.msg;
+	 	});
+	 	if(status){
+	 		layer.msg(msg);
+	 		return false;
+	 	}
+	 	var index = parent.layer.getFrameIndex(window.name);
+		parent.layer.close(index);
+		return false;
+	 });
+</script>
+</html>

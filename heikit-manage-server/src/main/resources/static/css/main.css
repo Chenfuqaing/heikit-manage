@@ -1,0 +1,48 @@
+.layui-form-item {
+	margin-bottom: 2px;
+}
+
+.layui-input, .layui-select, .layui-textarea {
+	height: 32px;
+}
+.layui-form-label{
+	width: auto;
+}
+.layui-btn {
+	height: 32px;
+	line-height: 32px;
+}
+
+.layui-input-inline .layui-btn{
+	margin-top: -5px;
+}
+
+.layui-btn-xs {
+	height: 22px;
+	line-height: 22px;
+}
+
+.layui-form-item .layui-inline {
+	margin-right: 5px;
+}
+
+.layui-fluid {
+	padding-top: 5px;
+}
+
+.form-detail .layui-form-item {
+	margin-bottom: 0;
+}
+
+.form-detail .layui-form-item .layui-inline {
+	margin-bottom: 0;
+	margin-right: 0;
+}
+
+.form-detail .form-label {
+	width: 120px;
+}
+
+.form-detail .layui-form-item {
+	border: 1px solid #f2f2f2;
+}

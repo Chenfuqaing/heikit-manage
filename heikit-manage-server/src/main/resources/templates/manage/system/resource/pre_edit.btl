@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>修改资源管理配置</title>
+  <%include("/common/base_css.btl"){}%>
+</head>
+
+<body class="form-detail">
+  <form class="layui-form" action="">
+
+	<div class="layui-form-item layui-col-md12">
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">parentId</label>
+	      <div class="layui-input-inline">
+	         <input type="text" id="parentId" name="parentId" autocomplete="off" class="layui-input" value="${resourceDO.parentId}" >
+	      </div>
+	    </div>
+		<div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input" value="${resourceDO.name}">
+	      </div>
+	    </div>
+	</div>
+	<div class="layui-form-item layui-col-md12">
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">地址</label>
+	      <div class="layui-input-inline">
+	         <input type="text" id="url" name="url" autocomplete="off" class="layui-input" value="${resourceDO.url}" >
+	      </div>
+	    </div>
+		<div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">图标</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="icon" name="icon" lay-verify="required" autocomplete="off" class="layui-input" value="${resourceDO.icon}">
+	      </div>
+	    </div>
+	</div>
+	<div class="layui-form-item">  
+		    <div class="layui-inline layui-col-md4">
+			      <label class="layui-form-label form-label">类型</label>
+			      <div class="layui-input-inline">
+				       <select id="type"  lay-filter="type" lay-verify="required" lay-search="">	        
+			          <option value="">直接选择或搜索选择</option>
+			        </select>
+			   	  </div>
+			 </div>
+		</div>
+	  <div class="layui-form-item">
+	    <div class="layui-input-block layui-col-md11">
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	      <button id="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+	    </div>
+  	  </div>  
+  </form>
+</body>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/plugins/layui-2.5.6/layui.js"></script>
+<script>
+	//重新渲染表单
+	function renderForm(){
+	  layui.use('form', function(){
+	   var form = layui.form;
+	   form.render();
+	  });
+	 }
+	layui.use('form', function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  
+	  var typeData = '${resourceDO.type}';
+	  var Type = '0,1';
+	  var Types = Type.split(',');
+	  for (var i=0;i<Types.length;i++){
+			 var text='';
+	 		 if(Types[i]==0){
+	 			 text="父菜单";
+	 		 }else if(Types[i]==1){
+	 			 text="子菜单";
+	 		 }
+	 		 if(typeData == Types[i]){
+			  	$("#type").append("<option value="+Types[i]+" selected>"+text+"</option>");
+	 		 }else{
+	 			$("#type").append("<option value="+Types[i]+">"+text+"</option>");
+	 		 }
+		  }
+	  
+	  form.render();
+	});  
+	layui.use('laydate', function(){
+	var laydate = layui.laydate;
+	
+		 //日期时间选择器
+	  laydate.render({
+	    elem: '#beginDate'
+	    ,type: 'datetime'
+	  });
+	  laydate.render({
+	    elem: '#finishDate'
+	    ,type: 'datetime'
+	  });
+	  });
+	
+	 $('#submit').on('click', function(){
+		var id = "${resourceDO.id}";
+	 	var parentId = $("#parentId").val();
+	 	var name = $("#name").val();
+	 	var url = $("#url").val();
+	 	var icon = $("#icon").val();
+	 	var type = $("#type").val();
+		
+	 	var data = {
+	 				id : id,
+	 				parentId : parentId,
+	 				name : name,
+	 				url : url,
+	 				icon : icon,
+	 				type : type,
+
+		 	};
+	 	
+	 	var msg='';var result=false;
+        $.ajaxSettings.async = false;
+	 	$.get("edit.json",data,function(res){
+	 		result = res.result;
+	 		msg = res.msg;
+	 	});
+	 	if(!result){
+	 		layer.msg(msg);
+	 		return false;
+	 	}
+	 	var index = parent.layer.getFrameIndex(window.name);
+		parent.layer.close(index);
+		return false;
+	 });
+</script>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>新增合同信息</title>
+  <%include("/common/base_css.btl"){}%>
+</head>
+
+<body class="form-detail">
+  <form class="layui-form" action="">
+
+	<div class="layui-form-item layui-col-md12">
+      <div class="layui-inline layui-col-md4">
+            <label class="layui-form-label form-label">业务员</label>
+            <div class="layui-input-inline">
+              <input type="text" name="userId" id='userId' lay-verify="pass" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>  
+        			  
+      <div class="layui-inline layui-col-md4">
+       	<div class="layui-input-inline" style="left: 74px">
+             <button type="button" class="layui-btn" >合同附件</button> 
+          </div> 
+     </div> 
+       
+	</div>
+	<div class="layui-form-item layui-col-md12">
+	
+    	<div class="layui-inline layui-col-md4">
+              <label class="layui-form-label form-label">签订单位</label>
+              <div class="layui-input-inline">
+                <input type="text" name="companyName" id='companyName' lay-verify="pass" placeholder="" autocomplete="off" class="layui-input">
+              </div>
+          </div>
+           
+           
+		<div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">项目名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id="projectName" name="projectName" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+	    
+	</div>
+	<div class="layui-form-item layui-col-md12">
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">合同金额</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="price" id='price' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+ 	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">合同税率%</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="tax" id='tax' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input">
+                </div>
+            </div>           
+
+	</div>
+	<div class="layui-form-item layui-col-md12">
+
+       		<div class="layui-inline layui-col-md4">
+    	      <label class="layui-form-label form-label">付款方式</label>
+    	      <div class="layui-input-inline">
+    	        <input type="text" id="payMethod" name="payMethod" lay-verify="required" autocomplete="off" class="layui-input" style="width:542px;" >
+    	      </div>
+    	    </div>
+
+	</div>
+
+	<div class="layui-form-item layui-col-md12">
+       		<div class="layui-inline layui-col-md4">
+    	      <label class="layui-form-label form-label">合同交货期</label>
+    	      <div class="layui-input-inline">
+    	        <input type="text" id="appointDeliveryTime" name="appointDeliveryTime" lay-verify="required" autocomplete="off" class="layui-input" >
+    	      </div>
+    	    </div>
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">实际交货期</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="actualDeliveryTime" id='actualDeliveryTime' lay-verify="pass" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+	</div>
+	<div class="layui-form-item layui-col-md12">
+            <div class="layui-inline layui-col-md4">
+    	      <label class="layui-form-label form-label">项目地址</label>
+    	      <div class="layui-input-inline">
+    	        <input type="text" id="address" name="address" lay-verify="required" autocomplete="off" class="layui-input" style="width:542px;">
+    	      </div>
+    	    </div>
+    </div>
+	<div class="layui-form-item layui-col-md12">
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">已收款</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="receivePrice" id='receivePrice' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">应收款</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="receivablePrice" id='receivablePrice' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+	</div>
+	
+		<div class="layui-form-item layui-col-md12">
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">已开票</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="gainInvoice" id='gainInvoice' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+	        <div class="layui-inline layui-col-md4">
+                <label class="layui-form-label form-label">未开票</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="withoutInvoice" id='withoutInvoice' lay-verify="pass" placeholder="数字（不含中文和字母）" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+	</div>
+
+	     
+	  <div class="layui-form-item">
+  	    <label class="layui-form-label form-label">合同内容</label>
+	    <div class="layui-input-block layui-col-md11">
+	      <textarea id="content" placeholder="请输入报销内容" class="layui-textarea" style="width:542px;height:100px;"></textarea>
+	    </div>
+	  </div>
+
+    <div class="layui-form-item layui-col-md12">
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">验收时间</label>
+	      <div class="layui-input-inline">
+	         <input type="text" class="layui-input" id="signDate" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off">
+	      </div>
+	    </div>
+	    <div class="layui-inline layui-col-md4">
+	      <label class="layui-form-label form-label">质保期</label>
+	      <div class="layui-input-inline">
+	         <input type="text" class="layui-input" id="warrantyTime" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off">
+	      </div>
+	    </div>
+	    
+	    </div>
+     <div class="layui-form-item layui-col-md12">
+          <div class="layui-inline layui-col-md4">
+              <label class="layui-form-label form-label">状态</label>
+              <div class="layui-input-block">
+                  <input type="radio" name="status" value="0" title="未完成" checked="">
+                  <input type="radio" name="status" value="1" title="执行中" >
+                  <input type="radio" name="status" value="2" title="已完成" >
+              </div>
+         </div>
+     </div>
+      <div class="layui-form-item layui-col-md12">
+          <div class="layui-inline layui-col-md4">
+			      <label class="layui-form-label form-label">合同类型</label>
+			     <div class="layui-input-inline">
+			       <select id="type" name="type" lay-verify="required" lay-search="">
+			       	   <option value=""></option>	
+			           <option value="0">销售</option>
+			           <option value="1">售后</option>
+			           <option value="2">改造</option>
+			           <option value="3">配件</option>
+			           <option value="4">其它</option>
+			         </select>
+		         </div>
+			  </div>
+			  
+	  </div>
+
+	  
+	  <div class="layui-form-item">
+	    <div class="layui-input-block layui-col-md11">
+	      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	      <button id="submit" class="layui-btn" lay-submit="" lay-filter="demo1" onssubmit="return false;">立即提交</button>
+	    </div>
+  	  </div>  
+  </form>
+</body>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/plugins/layui-2.5.6/layui.js"></script>
+<style >
+.layui-form-label.form-label.layui-required:after{
+        content:"*";
+        color:red;
+        position: absolute;
+/*         top:5px;
+        left:15px; */
+    }
+</style >
+<script>
+
+
+	layui.use('form', function(){
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  
+	  //……
+
+	  
+	  //但是，如果你的HTML是动态生成的，自动渲染就会失效
+	  //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+	  form.render();
+	});  
+	layui.use('upload', function(){
+	  var upload = layui.upload;
+	   
+	  //执行实例
+	  var uploadInst = upload.render({
+	    elem: '#banner' //绑定元素
+	    ,url: '/upload/file' //上传接口
+	    ,done: function(res){
+	      //上传完毕回调
+	    }
+	    ,error: function(){
+	      //请求异常回调
+	    }
+	  });
+	});
+	layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		//日期时间选择器
+		  laydate.render({
+		    elem: '#signDate',
+		    type: 'datetime',
+		    trigger:'click'
+		  });
+		  laydate.render({
+		    elem: '#warrantyTime',
+		    type: 'datetime',
+		    trigger:'click'
+		  });
+	});
+	 $('#submit').on('click', function(){
+		 	var projectName = $("#projectName").val();
+		 	var signDate = $("#signDate").val();
+		 	var companyName = $("#companyName").val();
+		 	var content = $("#content").val();
+		 	var tax = $("#tax").val();
+		 	 if(isNaN(tax)){　　　　
+			    	parent.layer.msg('税率必须是数字!');
+				    return false;
+			    }
+		 	 
+		 	var payMethod = $("#payMethod").val();
+		 	
+		 	var receivePrice = $("#receivePrice").val();
+		 	 if(isNaN(receivePrice)){　　　　
+			    	parent.layer.msg('已收款金额必须是数字!');
+				    return false;
+			    }
+		 	 
+		 	var receivablePrice = $("#receivablePrice").val();
+			 if(isNaN(receivablePrice)){　　　　
+			    	parent.layer.msg('应收款金额必须是数字!');
+				    return false;
+			    }
+			 
+		 	var price = $("#price").val();
+		    if(isNaN(price)){　　　　
+		    	parent.layer.msg('合同金额必须是数字!');
+			    return false;
+		    }
+			 
+		 	var gainInvoice = $("#gainInvoice").val();
+		    if(isNaN(gainInvoice)){　　　　
+		    	parent.layer.msg('已开票必须是数字!');
+			    return false;
+		    }
+			 
+		 	var withoutInvoice = $("#withoutInvoice").val();
+		    if(isNaN(withoutInvoice)){　　　　
+		    	parent.layer.msg('未开票必须是数字!');
+			    return false;
+		    }
+		    
+		 	var userId = $("#userId").val();
+		 	var type = $("#type").val();
+		 	var warrantyTime = $("#warrantyTime").val();
+		 	var address = $("#address").val();
+		 	var appointDeliveryTime = $("#appointDeliveryTime").val();
+		 	var actualDeliveryTime = $("#actualDeliveryTime").val();
+		 	var status = $('input[name="status"]:checked').val();
+
+	 	var data = {
+	 			projectName:projectName,
+	 			signDate:signDate,
+	 			price:price,
+	 			tax:tax,
+	 			companyName:companyName,
+	 			content:content,
+	 			payMethod:payMethod, 
+	 			receivePrice:receivePrice, 
+	 			receivablePrice:receivablePrice, 
+	 			userId:userId, 
+	 			warrantyTime:warrantyTime, 
+	 			appointDeliveryTime:appointDeliveryTime, 
+	 			actualDeliveryTime:actualDeliveryTime, 
+	 			gainInvoice:gainInvoice, 
+	 			withoutInvoice:withoutInvoice, 
+		 		status:status,
+		 		type:type,
+		 		address:address
+	 	};
+	 	$.ajaxSettings.async = false;
+	 	$.get("add.json",data,function(res){
+	 	});
+	 	var index = parent.layer.getFrameIndex(window.name);
+ 		parent.layer.close(index);
+ 		return false;
+	 });
+</script>
+
+</html>

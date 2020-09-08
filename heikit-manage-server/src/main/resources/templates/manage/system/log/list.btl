@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>系统日志</title>
+    <%include("/common/base_css.btl"){}%>
+</head>
+
+<body>
+<div class="layui-fluid">
+	<div class="layui-row">
+	    <table lay-filter="table-init" id="data-table"></table>
+    </div>
+</div>
+    <%include("/common/table-list.btl"){}%>
+    <script>
+	    layui.use('laydate', function(){
+		    var laydate = layui.laydate;
+		    laydate.render({
+		        elem: '#createDate'
+		        ,range: true
+		      });
+		});
+        layui.use('table', function() {
+            var table = layui.table;
+            
+            table.render({
+            	elem: '#data-table',
+            	height: 'full-75',
+            	url: 'get_json.json',
+            	page: true,
+            	cols: [[
+            		{field:'id', title:'序号', width: 80, sort: true},
+            		{field:'userId', title:'操作人ID', width:100, sort: true},
+            		{field:'userName', title:'操作人', width:120},
+            		{field:'url', title:'请求地址', width:230},
+            		{field:'httpMethod', title:'方法', width:80},
+            		{field:'classMethod', title:'类名', width:230},
+            		{field:'ip', title:'IP', width:140},
+                	{field:'args', title:'请求参数', width:260},
+                	{field:'response', title:'响应数据', width:260}
+            	]]
+            });
+            
+            table.on('tool(test)', function(obj){
+                var data = obj.data;
+              });
+            
+             $('#search').on('click', function(){
+            	 	var time  = $('#createDate').val().split(' - ');
+	    			var beginTime='';var finishTime='';
+	      	    	if(time.length>1){
+	      	    		beginTime = time[0];
+	      	    		finishTime = time[1];
+	      	    	}
+	            	table.reload('data-table',{
+	            		  where: { //设定异步数据接口的额外参数，任意设
+	            			 code: $("#code").val()
+	            		    ,logType: $("#logType").val()
+	            		    ,beginTime:beginTime
+	            		    ,finishTime:finishTime
+	            		    //…
+	            		  }
+	            		  ,page: {
+	            		    curr: 1 //重新从第 1 页开始
+	            		  }
+	            		});
+	            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.5.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.rejia.manage.demo</groupId>
+	<artifactId>rejia-manage-project</artifactId>
+	<version>1.0.0-release</version>
+	<packaging>pom</packaging>
+	<name>rejia-manage</name>
+	<description>project for rejia-manage-project</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<fastjson.version>1.2.68</fastjson.version>    
+		<guava.version>28.2-jre</guava.version>   
+		<mybatis-plus.version>3.3.1</mybatis-plus.version>
+		<mssql-jdbc.version>8.3.0.jre8-preview</mssql-jdbc.version>
+		<druid-spring-boot-starter.version>1.1.21</druid-spring-boot-starter.version>
+		<shiro.version>1.5.0</shiro.version>
+		<easypoi.version>3.0.3</easypoi.version>
+		
+		<rejia.manage.server.version>1.0.0-release</rejia.manage.server.version>
+		<rejia.manage.web.version>1.0.0-release</rejia.manage.web.version>
+		<rejia.manage.model.version>1.0.0-release</rejia.manage.model.version>
+		<rejia.manage.dbcore.version>1.0.0-release</rejia.manage.dbcore.version>
+		<rejia.manage.core.version>1.0.0-release</rejia.manage.core.version>
+		<rejia.manage.common.version>1.0.0-release</rejia.manage.common.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+	    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+	    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>${guava.version}</version>
+		</dependency>
+
+	    <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<scope>true</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.name}-${project.version}</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<!-- 所有公共资源文件 -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+	<modules>
+		<module>rejia-manage-common</module>
+		<module>rejia-manage-dbcore</module>
+		<module>rejia-manage-model</module>
+		<module>rejia-manage-web</module>
+		<module>rejia-manage-server</module>
+		<module>rejia-manage-core</module>
+	</modules>
+</project>
